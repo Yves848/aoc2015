@@ -1,0 +1,15 @@
+/home/yves/git/aoc2015/01/bin/Debug/net9.0/01
+/home/yves/git/aoc2015/01/bin/Debug/net9.0/01.deps.json
+/home/yves/git/aoc2015/01/bin/Debug/net9.0/01.runtimeconfig.json
+/home/yves/git/aoc2015/01/bin/Debug/net9.0/01.dll
+/home/yves/git/aoc2015/01/bin/Debug/net9.0/01.pdb
+/home/yves/git/aoc2015/01/obj/Debug/net9.0/01.GeneratedMSBuildEditorConfig.editorconfig
+/home/yves/git/aoc2015/01/obj/Debug/net9.0/01.AssemblyInfoInputs.cache
+/home/yves/git/aoc2015/01/obj/Debug/net9.0/01.AssemblyInfo.cs
+/home/yves/git/aoc2015/01/obj/Debug/net9.0/01.csproj.CoreCompileInputs.cache
+/home/yves/git/aoc2015/01/obj/Debug/net9.0/01.sourcelink.json
+/home/yves/git/aoc2015/01/obj/Debug/net9.0/01.dll
+/home/yves/git/aoc2015/01/obj/Debug/net9.0/refint/01.dll
+/home/yves/git/aoc2015/01/obj/Debug/net9.0/01.pdb
+/home/yves/git/aoc2015/01/obj/Debug/net9.0/01.genruntimeconfig.cache
+/home/yves/git/aoc2015/01/obj/Debug/net9.0/ref/01.dll
