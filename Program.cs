@@ -1,7 +1,8 @@
 ﻿using System.Text.RegularExpressions;
+using System.Runtime.InteropServices;
 
 string home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-var file = args.Length > 0 ? File.ReadAllText(args[0]) : File.ReadAllText($"{home}/git/aoc2020/04/test.txt");
+var file = args.Length > 0 ? File.ReadAllText(args[0]) : File.ReadAllText($"{home}/git/aoc2015/03/test.txt");
 var lf = RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? "\r\n" : "\n";
 
 void part1()
