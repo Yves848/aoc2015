@@ -67,46 +67,36 @@ bool travelExists(string travel)
   return result;
 }
 
+
+
 void part1()
 {
   int ans = int.MaxValue;
+  Stack<(string,List<string>)> Q = [];
   towns.ToList().ForEach(t =>
   {
-
-    long i = 0;
-    string town = t;
-    while (i < travels.Count )
+    Q.Push((t,[t]));
+    while (Q.Count > 0)
     {
-      string travel = town;
-      int dist = 0;
-      while (true)
+      var (town, travel) = Q.Pop();
+
+      for (int i = 0; i < travels.ToList().Count; i++)
       {
-        var (t2, d) = findNext(town, travel);
-        if (t2 != "")
+        var (t1, t2) = travels.ToList()[i].Key;
+        var d = travels.ToList()[i].Value;
+        if (t1 == town)
         {
-          dist += d;
-          travel += t2;
-          town = t2;
-        }
-        else
-        {
-          if (dist > 0)
-          {
-            routes.Add(travel);
-            Console.Write($"{travel} = ");
-            Console.Write($"{dist}");
-            Console.WriteLine();
-            if (dist < ans) ans = dist;
-            i = -1;
-            dist = 0;
-            town = t;
-            travel = town;
-          } else
-            break;
+          if (!travel.Contains(t2)) {
+            travel.Add(t2);
+            town = t2;
+          } else {
+            Q.Push((t1,[..travel]));
+          }
         }
       }
-      i++;
+
     }
+
   });
   Console.WriteLine($"Part 1 - Answer : {ans}");
 }
