@@ -53,14 +53,16 @@ void part2()
     line2 =  line;
     int l1 = @line.Length +2;
     code += l1;
-    line2 = line2.Replace("\\\"","\\\\\\\"");
-    line2 = "\""+line2+"\"";
+    line2 = line2.Replace("\\","\\\\");
+    line2 = line2.Replace("\"","\\\"");
     var m = c.Match(line2);
-    if (m.Success) {
-      line2 = c.Replace(line2,"\\\""+m.Value+"\"");
-    }
+    // if (m.Success) {
+    //   line2 = line2.Replace(m.Value,"\\"+m.Value);
+    //   // line2 = c.Replace(line2,"\\"+m.Value);
+    // }
+    line2 = "\\\""+line2+"\\\"";
     
-    int l2 = line2.Length+4;
+    int l2 = line2.Length+2;
     Console.WriteLine($"{line2} {l2}");
     str += l2;
   });
