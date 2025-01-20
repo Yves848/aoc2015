@@ -1,14 +1,15 @@
 ﻿using System.Text.RegularExpressions;
 using System.Runtime.InteropServices;
-using System.IO.Pipelines;
+using Spectre.Console;
+using System.Threading.Tasks.Dataflow;
 
 string home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-List<string> file = args.Length > 0 ? File.ReadAllLines(args[0]).ToList() : File.ReadAllLines($"{home}/git/aoc2015/09/data.txt").ToList();
+List<string> file = args.Length > 0 ? File.ReadAllLines(args[0]).ToList() : File.ReadAllLines($"{home}/git/aoc2015/09/test.txt").ToList();
 var lf = RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? "\r\n" : "\n";
 Regex re = new(@"([\S]+) to ([\S]+) = (\d+)");
 
 Dictionary<(string, string), int> travels = [];
-HashSet<string> routes = [];
+HashSet<List<string>> routes = [];
 HashSet<string> towns = [];
 file.ForEach(t =>
 {
@@ -32,65 +33,44 @@ void print(string str, bool valid)
   Console.Write($"{str} ");
 }
 
-bool travelExists(string travel)
-{
-  bool result = false;
-  for (int i = 0; i < routes.Count; i++)
-  {
-    if (routes.ToList()[i].StartsWith(travel))
-    {
-      result = true;
-      break;
-    }
-  }
-  return result;
-}
-
-(string, int) findNext(string town, string travel)
-{
-  (string, int) result = ("", 0);
-
-  for (int i = 0; i < travels.ToList().Count; i++)
-  {
-    var (t1, t2) = travels.ToList()[i].Key;
-    var d = travels.ToList()[i].Value;
-    if (t1 == town && !travel.Contains(t2))
-    {
-      if (!travelExists(travel + t2))
-      {
-        result = (t2, d);
-        break;
-      }
-    }
-  }
-  ;
-  return result;
-}
-
-
-
 void part1()
 {
   int ans = int.MaxValue;
-  Stack<(string,List<string>)> Q = [];
+  Stack<(string, List<string>)> Q = [];
+  Rule rule = new Rule();
   towns.ToList().ForEach(t =>
   {
-    Q.Push((t,[t]));
+    Q.Clear();
+    Q.Push((t, [t]));
+    AnsiConsole.Write(rule);
+    // Console.WriteLine(t);
     while (Q.Count > 0)
     {
-      var (town, travel) = Q.Pop();
-
-      for (int i = 0; i < travels.ToList().Count; i++)
+      var (town, route) = Q.Pop();
+      for (int i = 0; i < travels.Count; i++)
       {
         var (t1, t2) = travels.ToList()[i].Key;
-        var d = travels.ToList()[i].Value;
         if (t1 == town)
         {
-          if (!travel.Contains(t2)) {
-            travel.Add(t2);
-            town = t2;
-          } else {
-            Q.Push((t1,[..travel]));
+          if (!route.Contains(t2))
+          {
+            route.Add(t2);
+            if (route.Count < towns.Count )
+              Q.Push((t2, [.. route]));
+          }
+          if (route.Count == towns.Count)
+          {
+            if (!routes.Contains(route))
+            {
+              routes.Add(route);
+              route.ForEach(r =>
+              {
+                Console.Write($"{r} ");
+              });
+              Console.WriteLine();
+              // route.Clear();
+            }
+
           }
         }
       }
