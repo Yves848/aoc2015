@@ -45,6 +45,7 @@ IEnumerable<List<T>> GetPermutations<T>(List<T> list, int length)
 void Part1()
 {
   int ans = int.MaxValue;
+  int ans2 = int.MinValue;
   Stack<(string, List<string>)> Q = [];
   Rule rule = new Rule();
   var allRoutes = GetPermutations(towns.ToList(), towns.Count);
@@ -66,16 +67,18 @@ void Part1()
   {
     // Console.WriteLine($"{route} = {distance}");
     if (distance < ans) ans = distance;
+    if (distance > ans2) ans2 = distance;
   }
   Console.WriteLine($"Part 1 - Answer : {ans}");
+  Console.WriteLine($"Part 2 - Answer : {ans2}");
 }
 
 void Part2()
 {
   var ans = 0;
-  Console.WriteLine($"Part 2 - Answer : {ans}");
+  
 }
 
 Part1();
 
-Part2();
+// Part2();
