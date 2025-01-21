@@ -2,6 +2,8 @@
 using System.Runtime.InteropServices;
 using Spectre.Console;
 using System.Threading.Tasks.Dataflow;
+using System.IO.Pipelines;
+using System.Diagnostics;
 
 string home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
 List<string> file = args.Length > 0 ? File.ReadAllLines(args[0]).ToList() : File.ReadAllLines($"{home}/git/aoc2015/09/test.txt").ToList();
@@ -33,60 +35,48 @@ void print(string str, bool valid)
   Console.Write($"{str} ");
 }
 
-void part1()
+List<string> destinations(string town, string seen)
+{
+  List<string> result = travels.Where(kvp => kvp.Key.Item1 == town && !seen.Contains(kvp.Key.Item2)).ToList().Select(t => t.Key.Item2).ToList();
+  return result;
+}
+void Part1()
 {
   int ans = int.MaxValue;
   Stack<(string, List<string>)> Q = [];
   Rule rule = new Rule();
-  towns.ToList().ForEach(t =>
+  towns.ToList().ForEach(town =>
   {
-    Q.Clear();
-    Q.Push((t, [t]));
-    AnsiConsole.Write(rule);
-    // Console.WriteLine(t);
-    while (Q.Count > 0)
+    HashSet<string> visit = [];
+    string visited = "";
+    List<string> dest = destinations(town, visited).ToList();
+    while (dest.Count > 0)
     {
-      var (town, route) = Q.Pop();
-      for (int i = 0; i < travels.Count; i++)
+      List<string> route = [town];
+      route.Add(dest[0]);
+      visited += dest[0];
+      if (dest.Count > 1)
       {
-        var (t1, t2) = travels.ToList()[i].Key;
-        if (t1 == town)
-        {
-          if (!route.Contains(t2))
-          {
-            route.Add(t2);
-            if (route.Count < towns.Count )
-              Q.Push((t2, [.. route]));
-          }
-          if (route.Count == towns.Count)
-          {
-            if (!routes.Contains(route))
-            {
-              routes.Add(route);
-              route.ForEach(r =>
-              {
-                Console.Write($"{r} ");
-              });
-              Console.WriteLine();
-              // route.Clear();
-            }
+        dest.RemoveAt(0);
+        dest = destinations(dest[0], visited);
+      } else {
+        routes.Add(route);
+        visit.Add(visited);
+        dest = destinations(town, visited);
 
-          }
-        }
       }
-
     }
-
+    
   });
   Console.WriteLine($"Part 1 - Answer : {ans}");
 }
 
-void part2()
+void Part2()
 {
-  int ans = 0;
+  var ans = 0;
   Console.WriteLine($"Part 2 - Answer : {ans}");
 }
 
-part1();
+Part1();
 
-part2();
+Part2();
