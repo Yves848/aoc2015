@@ -1,9 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 using System.Runtime.InteropServices;
 using Spectre.Console;
-using System.Threading.Tasks.Dataflow;
-using System.IO.Pipelines;
-using System.Diagnostics;
 
 string home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
 List<string> file = args.Length > 0 ? File.ReadAllLines(args[0]).ToList() : File.ReadAllLines($"{home}/git/aoc2015/09/test.txt").ToList();
@@ -35,39 +32,41 @@ void print(string str, bool valid)
   Console.Write($"{str} ");
 }
 
-List<string> destinations(string town, string seen)
+IEnumerable<List<T>> GetPermutations<T>(List<T> list, int length)
 {
-  List<string> result = travels.Where(kvp => kvp.Key.Item1 == town && !seen.Contains(kvp.Key.Item2)).ToList().Select(t => t.Key.Item2).ToList();
-  return result;
+  if (length == 1)
+    return list.Select(t => new List<T> { t });
+
+  return GetPermutations(list, length - 1)
+      .SelectMany(t => list.Where(e => !t.Contains(e)),
+                  (t1, t2) => t1.Concat(new List<T> { t2 }).ToList());
 }
+
 void Part1()
 {
   int ans = int.MaxValue;
   Stack<(string, List<string>)> Q = [];
   Rule rule = new Rule();
-  towns.ToList().ForEach(town =>
-  {
-    HashSet<string> visit = [];
-    string visited = "";
-    List<string> dest = destinations(town, visited).ToList();
-    while (dest.Count > 0)
-    {
-      List<string> route = [town];
-      route.Add(dest[0]);
-      visited += dest[0];
-      if (dest.Count > 1)
-      {
-        dest.RemoveAt(0);
-        dest = destinations(dest[0], visited);
-      } else {
-        routes.Add(route);
-        visit.Add(visited);
-        dest = destinations(town, visited);
+  var allRoutes = GetPermutations(towns.ToList(), towns.Count);
+  var routeDistances = new List<(string route, int distance)>();
 
-      }
+  foreach (var route in allRoutes)
+  {
+    int totalDistance = 0;
+    for (int i = 0; i < route.Count - 1; i++)
+    {
+      var segment = (route[i], route[i + 1]);
+      totalDistance += travels[segment];
     }
-    
-  });
+    routeDistances.Add((string.Join(" -> ", route), totalDistance));
+  }
+
+  // Display all routes and their distances
+  foreach (var (route, distance) in routeDistances)
+  {
+    // Console.WriteLine($"{route} = {distance}");
+    if (distance < ans) ans = distance;
+  }
   Console.WriteLine($"Part 1 - Answer : {ans}");
 }
 
