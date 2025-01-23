@@ -6,19 +6,18 @@ string home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
 // var lf = RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? "\r\n" : "\n";
 
 // string puzzle = "1"; // test
-string puzzle = "1113122113"; // real
+string input = "1113122113"; // real
 
 
 void part1()
 {
   int ans = 0;
-
-  for (int i = 0; i < 50; i++)
+  string puzzle = input;
+  for (int i = 0; i < 40; i++)
   {
     string result = "";
     char currentChar = puzzle[0];
     string currentGroup = "";
-    string temp = "";
     foreach (char c in puzzle)
     {
       if (c == currentChar)
@@ -28,13 +27,13 @@ void part1()
       else
       {
         //result.Add(currentGroup);
-        result += currentGroup.Length.ToString()+currentGroup[0];
+        result += currentGroup.Length.ToString() + currentGroup[0];
         currentGroup = c.ToString();
         currentChar = c;
       }
     }
 
-    result += currentGroup.Length.ToString()+currentGroup[0];
+    result += currentGroup.Length.ToString() + currentGroup[0];
     puzzle = result;
   }
   ans = puzzle.Length;
@@ -44,6 +43,33 @@ void part1()
 void part2()
 {
   int ans = 0;
+  string puzzle = input;
+  for (int i = 0; i < 50; i++)
+  {
+    string result = "";
+    char currentChar = puzzle[0];
+    string currentGroup = "";
+    foreach (char c in puzzle)
+    {
+      if (c == currentChar)
+      {
+        currentGroup += c;
+      }
+      else
+      {
+        //result.Add(currentGroup);
+        result += currentGroup.Length.ToString() + currentGroup[0];
+        currentGroup = c.ToString();
+        currentChar = c;
+      }
+    }
+
+    result += currentGroup.Length.ToString() + currentGroup[0];
+    puzzle = result;
+    Console.WriteLine($"Part 2 - {i}");
+  }
+  ans = puzzle.Length;
+  // ans = puzzle.Length;
   Console.WriteLine($"Part 2 - Answer : {ans}");
 }
 
