@@ -1,0 +1,15 @@
+C:\Users\Yves\git\aoc2015\11\bin\Debug\net9.0\11.exe
+C:\Users\Yves\git\aoc2015\11\bin\Debug\net9.0\11.deps.json
+C:\Users\Yves\git\aoc2015\11\bin\Debug\net9.0\11.runtimeconfig.json
+C:\Users\Yves\git\aoc2015\11\bin\Debug\net9.0\11.dll
+C:\Users\Yves\git\aoc2015\11\bin\Debug\net9.0\11.pdb
+C:\Users\Yves\git\aoc2015\11\obj\Debug\net9.0\11.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Yves\git\aoc2015\11\obj\Debug\net9.0\11.AssemblyInfoInputs.cache
+C:\Users\Yves\git\aoc2015\11\obj\Debug\net9.0\11.AssemblyInfo.cs
+C:\Users\Yves\git\aoc2015\11\obj\Debug\net9.0\11.csproj.CoreCompileInputs.cache
+C:\Users\Yves\git\aoc2015\11\obj\Debug\net9.0\11.sourcelink.json
+C:\Users\Yves\git\aoc2015\11\obj\Debug\net9.0\11.dll
+C:\Users\Yves\git\aoc2015\11\obj\Debug\net9.0\refint\11.dll
+C:\Users\Yves\git\aoc2015\11\obj\Debug\net9.0\11.pdb
+C:\Users\Yves\git\aoc2015\11\obj\Debug\net9.0\11.genruntimeconfig.cache
+C:\Users\Yves\git\aoc2015\11\obj\Debug\net9.0\ref\11.dll
