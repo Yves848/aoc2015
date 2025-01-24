@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "5nIE65iRA8A=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Yves\\git\\aoc2015\\13\\13.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Yves\\.nuget\\packages\\spectre.console\\0.49.1\\spectre.console.0.49.1.nupkg.sha512"
+  ],
+  "logs": []
+}
