@@ -20,23 +20,12 @@ file.ForEach(line =>
   // happy.Add((m.Groups[4].Value, m.Groups[1].Value), h);
 });
 
-void print(string str, bool valid)
-{
-  if (valid)
-  {
-    Console.ForegroundColor = ConsoleColor.Green;
-  }
-  else
-  {
-    Console.ForegroundColor = ConsoleColor.Red;
-  }
-  Console.Write($"{str} ");
-}
 
 void part1()
 {
   int ans = 0;
   int h = 0;
+  int h2 = 0;
   Rule r = new Rule();
   var allGuests = GetPermutations(guest.ToList(), guest.Count);
   foreach (var guest in allGuests)
@@ -44,18 +33,19 @@ void part1()
     int temp = 0;
     for (int i = 0; i < guest.Count - 1; i++)
     {
+      int j = i == 0 ? guest.Count - 1 : i - 1;
       var segment = (guest[i], guest[i + 1]);
       h = happy[segment];
-      Console.WriteLine($"{guest[i]} {guest[i+1]} {h}");
       temp += h;
-      int j = i == 0 ? guest.Count -1: i-1; 
-      segment = (guest[j], guest[i]);
-      h = happy[segment];
-      temp += h;
-      Console.WriteLine($"{guest[j]} {guest[i]} {h}");
+      segment = (guest[i], guest[j]);
+      h2 = happy[segment];
+      Console.WriteLine($"{guest[j]} {guest[i]} {guest[i + 1]} {h2} {h}");
+      temp += h2;
     }
-    // h = happy[(guest[guest.Count-1],guest[0])];
-    // temp += h;
+    h = happy[(guest[guest.Count - 1], guest[0])];
+    temp += h;
+    h = happy[(guest[guest.Count - 1], guest[guest.Count - 2])];
+    temp += h;
     // Console.WriteLine($"{guest[guest.Count-1]} {guest[0]} {h}");
     AnsiConsole.Write(r);
     if (temp > ans) ans = temp;
@@ -64,12 +54,47 @@ void part1()
   Console.WriteLine($"Part 1 - Answer : {ans}");
 }
 
+int happyness(string guest1, string guest2)
+{
+  int result = 0;
+  if (guest1 == "Yves" || guest2 == "Yves") return 0;
+
+  return happy[(guest1, guest2)];
+}
+
 void part2()
 {
   int ans = 0;
-  Console.WriteLine($"Part 2 - Answer : {ans}");
-}
+  int h = 0;
+  int h2 = 0;
+  Rule r = new Rule();
+  guest.Add("Yves");
+  var allGuests = GetPermutations(guest.ToList(), guest.Count);
+  foreach (var guest in allGuests)
+  {
+    int temp = 0;
+    for (int i = 0; i < guest.Count - 1; i++)
+    {
+      int j = i == 0 ? guest.Count - 1 : i - 1;
+      h = happyness(guest[i], guest[i + 1]);
+      temp += h;
+      h2 = happyness(guest[i], guest[j]);
+      Console.WriteLine($"{guest[j]} {guest[i]} {guest[i + 1]} {h2} {h}");
+      temp += h2;
 
+    }
+
+    h = happyness(guest[guest.Count - 1], guest[0]);
+    temp += h;
+    h = happyness(guest[guest.Count - 1], guest[guest.Count - 2]);
+    temp += h;
+
+    // Console.WriteLine($"{guest[guest.Count-1]} {guest[0]} {h}");
+    AnsiConsole.Write(r);
+    if (temp > ans) ans = temp;
+    Console.WriteLine($"Part 2 - Answer : {ans}");
+  }
+}
 part1();
 
 part2();
