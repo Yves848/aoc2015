@@ -5,18 +5,6 @@ string home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
 List<string> file = args.Length > 0 ? File.ReadAllLines(args[0]).ToList() : File.ReadAllLines($"{home}/git/aoc2015/05/data.txt").ToList();
 var lf = RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? "\r\n" : "\n";
 
-void print(string str, bool valid)
-{
-  if (valid)
-  {
-    Console.ForegroundColor = ConsoleColor.Green;
-  }
-  else
-  {
-    Console.ForegroundColor = ConsoleColor.Red;
-  }
-  Console.Write($"{str} ");
-}
 
 void part1()
 {
