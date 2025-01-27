@@ -1,6 +1,5 @@
 ﻿using System.Text.RegularExpressions;
 using System.Runtime.InteropServices;
-using System.Runtime.CompilerServices;
 
 string home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
 string file = args.Length > 0 ? File.ReadAllText(args[0]) : File.ReadAllText($"{home}/git/aoc2015/19/test.txt");
