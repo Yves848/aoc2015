@@ -1,0 +1,12 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build", // Match the label with "preLaunchTask" in launch.json
+      "command": "dotnet",
+      "type": "process",
+      "args": ["build", "${workspaceFolder}/19/19.csproj"],
+      "problemMatcher": "$msCompile"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C#: 19",
+      "type": "coreclr", // Use "coreclr" for .NET debugging
+      "request": "launch",
+      "program": "${workspaceFolder}/19/bin/Debug/net9.0/19.dll", // Path to the compiled DLL
+      "args": [
+        "data.txt"
+      ], // Add your command-line arguments here
+      "cwd": "${workspaceFolder}/19", // Set working directory
+      "stopAtEntry": false,
+      "console": "integratedTerminal", // Use the integrated terminal for output
+      "preLaunchTask": "build" 
+    }
+  ]
+}
