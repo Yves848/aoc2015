@@ -10,7 +10,7 @@
       "request": "launch",
       "program": "${workspaceFolder}/19/bin/Debug/net9.0/19.dll", // Path to the compiled DLL
       "args": [
-        "data.txt"
+        "test.txt"
       ], // Add your command-line arguments here
       "cwd": "${workspaceFolder}/19", // Set working directory
       "stopAtEntry": false,
